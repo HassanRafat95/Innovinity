@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="medical_patients_form_view" model="ir.ui.view">
+        <field name="name">medical.patients.form.view</field>
+        <field name="model">medical.patient</field>
+        <field name="inherit_id" ref="basic_hms.medical_patients_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_address_id']" position="after">
+                <field name="national_id" />
+                <field name="mobile_no" />
+            </xpath>
+            <xpath expr="//field[@name='current_insurance_id']" position="after">
+                <field name="has_a_kids" />
+                <field name="number_of_kids"  attrs="{'required': [('has_a_kids','!=',False)],'invisible': [('has_a_kids','=',False)]}"/>
+                <field name="source_id" />
+                <field name="profession" />
+                <field name="created_by" />
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Surgeries">
+                    <group>
+                        <field name="surgery_name" />
+                        <field name="date" />
+                    </group>
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="action_source_managing" model="ir.actions.act_window">
+        <field name="name">Source Managing</field>
+        <field name="res_model">source.managing</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem name="Source Managing"
+              id="main_menu_conf_source_managing"
+              parent="basic_hms.main_menu_configartion"
+              action="action_source_managing"
+    />
+
+</odoo>
